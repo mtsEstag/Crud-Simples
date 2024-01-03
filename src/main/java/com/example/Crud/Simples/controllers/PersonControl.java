@@ -49,9 +49,15 @@ public class PersonControl {
     }
 
     @GetMapping("{id}")
-    public Person findById(@PathVariable Long id) {
+    public ResponseEntity<?> findById(@PathVariable Long id) {
         Person person = personService.findById(id);
-        return person;
+        if(person == null){
+            mensagem.setMensagem("Nenhum objeto foi encontrado com o id: " + id);
+            return ResponseEntity.badRequest().body(mensagem);
+        }else{
+            return ResponseEntity.ok().body(person);
+        }
+        
     }
 
     @DeleteMapping("{id}")

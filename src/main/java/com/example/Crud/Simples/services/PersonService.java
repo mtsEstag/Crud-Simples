@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.example.Crud.Simples.models.Person;
 import com.example.Crud.Simples.repositories.PersonRepository;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class PersonService {
 
@@ -35,8 +37,14 @@ public class PersonService {
     }
 
     public Person findById(Long id) {
-        Person person = personRepository.findById(id).orElse(null);
-        return person;
+        try {
+            return personRepository.findById(id)
+                    .orElseThrow(() -> new EntityNotFoundException("Pessoa não encontrada com o ID: " + id));
+        } catch (EntityNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
     public void deleteById(Long id) {
