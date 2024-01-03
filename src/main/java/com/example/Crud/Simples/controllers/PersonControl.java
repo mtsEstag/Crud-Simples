@@ -1,6 +1,10 @@
 package com.example.Crud.Simples.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,4 +24,17 @@ public class PersonControl {
     public void save(@RequestBody Person person){
         personService.save(person);
     }
+
+    @GetMapping
+    public List<Person> findAll(){
+        List<Person> lista = personService.findAll();
+        return lista;
+    }
+
+    @GetMapping("{id}")
+    public Person findById(@PathVariable Long id){
+        Person person = personService.findById(id);
+        return person;
+    }
+
 }
