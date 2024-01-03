@@ -16,10 +16,10 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPerson;
 
-    private String nome;
-    
+    private String name;
+
     //Deve ser unico
-    private String matricula;
+    private String registration;
 
 }
 
