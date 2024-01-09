@@ -43,31 +43,33 @@ public class PersonControl {
     }
 
     @GetMapping
-    public List<Person> findAll() {
+    public ResponseEntity<?> findAll() {
         List<Person> lista = personService.findAll();
-        return lista;
+        return ResponseEntity.ok().body(lista);
     }
 
     @GetMapping("{id}")
     public ResponseEntity<?> findById(@PathVariable Long id) {
         Person person = personService.findById(id);
-        if(person == null){
-            mensagem.setMensagem("Nenhum objeto foi encontrado com o id: " + id);
+        if (person == null) {
+            mensagem.setMensagem("Nenhum pessoa foi encontrado com o id: " + id);
             return ResponseEntity.badRequest().body(mensagem);
-        }else{
+        } else {
             return ResponseEntity.ok().body(person);
         }
-        
+
     }
 
     @DeleteMapping("{id}")
-    public void deleteById(@PathVariable Long id) {
-        personService.deleteById(id);
+    public String deleteById(@PathVariable Long id) {
+        String text = personService.deleteById(id);
+        return text;
     }
 
     @PutMapping
     public void update(@RequestBody Person person) {
         personService.save(person);
     }
+
 
 }

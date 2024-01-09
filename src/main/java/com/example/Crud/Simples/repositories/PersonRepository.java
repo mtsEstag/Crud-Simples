@@ -6,6 +6,6 @@ import com.example.Crud.Simples.models.Person;
 
 
 public interface PersonRepository extends JpaRepository<Person, Long>{
-    
+    boolean existsById(Long id);
     boolean existsByRegistration(String registration);
 }

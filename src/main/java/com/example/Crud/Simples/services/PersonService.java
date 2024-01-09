@@ -3,6 +3,7 @@ package com.example.Crud.Simples.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.example.Crud.Simples.models.Person;
@@ -47,7 +48,21 @@ public class PersonService {
 
     }
 
-    public void deleteById(Long id) {
-        personRepository.deleteById(id);
+    public String deleteById(Long id) {
+
+        try {
+            if(personRepository.existsById(id)) {
+                personRepository.deleteById(id);
+                return "success";
+            }else {
+                return "failed - Entity not found";
+            }
+        } catch (EmptyResultDataAccessException e) {
+            return "failed - Entity not found";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "failed - Unexpected error";
+        }
     }
+
 }
