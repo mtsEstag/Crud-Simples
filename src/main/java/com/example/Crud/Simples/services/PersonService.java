@@ -31,6 +31,7 @@ public class PersonService {
         }
     }
 
+
     public List<Person> findAll() {
 
         List<Person> list = personRepository.findAll();

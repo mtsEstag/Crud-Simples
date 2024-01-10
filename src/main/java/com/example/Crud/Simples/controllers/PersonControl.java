@@ -67,8 +67,14 @@ public class PersonControl {
     }
 
     @PutMapping
-    public void update(@RequestBody Person person) {
-        personService.save(person);
+    public ResponseEntity<Person> update(@RequestBody Person person) {
+        boolean personUpdate = personService.save(person);
+        if(personUpdate){
+            return ResponseEntity.ok().body(person);
+        }else{
+            return null;
+        }
+        
     }
 
 
